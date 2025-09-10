@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinalPlyer - Reproductor Multimedia</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Layer -->
+    <div class="background-layer" id="backgroundLayer">
+        <div class="background-gradient"></div>
+        <div class="background-image"></div>
+        <video class="background-video" id="bgVideo" loop muted></video>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="app-logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="currentColor" opacity="0.3"/>
+                    </svg>
+                    FinalPlayer
+                </h1>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-view="library">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" fill="currentColor"/>
+                    </svg>
+                    <span>Biblioteca</span>
+                </button>
+                
+                <button class="nav-item" data-view="playlists">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z" fill="currentColor"/>
+                    </svg>
+                    <span>Playlists</span>
+                </button>
+                
+                <button class="nav-item" data-view="albums">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z" fill="currentColor"/>
+                    </svg>
+                    <span>Álbumes</span>
+                </button>
+                
+                <button class="nav-item" data-view="artists">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v8.55c-.94-.54-2.1-.75-3.33-.32-1.34.48-2.37 1.67-2.61 3.07-.46 2.74 1.86 5.08 4.59 4.65 1.96-.31 3.35-2.11 3.35-4.1V7h2c1.1 0 2-.9 2-2s-.9-2-2-2h-4z" fill="currentColor"/>
+                    </svg>
+                    <span>Artistas</span>
+                </button>
+                
+                <div class="nav-divider"></div>
+                
+                <button class="nav-item" id="importBtn">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/>
+                    </svg>
+                    <span>Importar</span>
+                </button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="settings-btn glass-btn" id="settingsBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97 0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.08-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1 0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Library View -->
+            <div class="view-container" id="libraryView">
+                <header class="view-header">
+                    <h2>Biblioteca</h2>
+                    <div class="header-actions">
+                        <input type="text" class="search-input glass-input" placeholder="Buscar...">
+                        <button class="glass-btn">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="tracks-grid" id="tracksGrid">
+                    <!-- Tracks will be dynamically loaded here -->
+                </div>
+                
+                <!-- Drop Zone -->
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-content">
+                        <svg viewBox="0 0 24 24" fill="none" class="drop-icon">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" fill="currentColor"/>
+                        </svg>
+                        <p>Arrastra archivos aquí</p>
+                        <span>o haz clic para seleccionar</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Playlists View -->
+            <div class="view-container hidden" id="playlistsView">
+                <header class="view-header">
+                    <h2>Playlists</h2>
+                    <button class="glass-btn" id="newPlaylistBtn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/>
+                        </svg>
+                        Nueva Playlist
+                    </button>
+                </header>
+                <div class="playlists-grid" id="playlistsGrid"></div>
+            </div>
+
+            <!-- Albums View -->
+            <div class="view-container hidden" id="albumsView">
+                <header class="view-header">
+                    <h2>Álbumes</h2>
+                </header>
+                <div class="albums-grid" id="albumsGrid"></div>
+            </div>
+
+            <!-- Artists View -->
+            <div class="view-container hidden" id="artistsView">
+                <header class="view-header">
+                    <h2>Artistas</h2>
+                </header>
+                <div class="artists-grid" id="artistsGrid"></div>
+            </div>
+        </main>
+
+        <!-- Player -->
+        <div class="player glass-panel" id="player">
+            
+            <!-- Visualizer Canvas -->
+            <canvas class="visualizer-canvas" id="visualizerCanvas"></canvas>
+            
+            <!-- Album Cover -->
+            <div class="player-cover">
+                <img src="" alt="Album cover" id="playerCover" class="cover-image">
+                <video src="" id="playerCoverVideo" class="cover-video" loop muted></video>
+            </div>
+            
+            <!-- Track Info -->
+            <div class="player-info">
+                <h3 class="track-title" id="trackTitle">Sin reproducción</h3>
+                <p class="track-artist" id="trackArtist">-</p>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="player-progress">
+                <span class="time-current" id="timeCurrent">0:00</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <input type="range" class="progress-slider" id="progressSlider" min="0" max="100" value="0">
+                </div>
+                <span class="time-total" id="timeTotal">0:00</span>
+            </div>
+            
+            <!-- Controls -->
+            <div class="player-controls">
+                <button class="control-btn" id="shuffleBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" fill="currentColor"/>
+                    </svg>
+                </button>
+                
+                <button class="control-btn" id="prevBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" fill="currentColor"/>
+                    </svg>
+                </button>
+                
+                <button class="control-btn control-btn-main" id="playPauseBtn">
+                    <svg viewBox="0 0 24 24" fill="none" class="play-icon">
+                        <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" class="pause-icon hidden">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/>
+                    </svg>
+                </button>
+                
+                <button class="control-btn" id="nextBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" fill="currentColor"/>
+                    </svg>
+                </button>
+                
+                <button class="control-btn" id="repeatBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Volume & Extra Controls -->
+            <div class="player-extra">
+                <div class="volume-control">
+                    <button class="control-btn" id="volumeBtn">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
+                </div>
+                
+                <button class="control-btn equalizer-btn" id="equalizerBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M7 18h2V6H7v12zm4 4h2V2h-2v20zm-8-8h2v-4H3v4zm12 4h2V6h-2v12zm4-8v4h2v-4h-2z" fill="currentColor"/>
+                    </svg>
+                </button>
+                
+                <button class="control-btn" id="queueBtn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Equalizer Panel -->
+    <div class="equalizer-panel glass-panel hidden" id="equalizerPanel">
+        <div class="eq-header">
+            <h3>Ecualizador</h3>
+            <button class="close-btn" id="closeEqBtn">×</button>
+        </div>
+        
+        <canvas class="eq-visualizer" id="eqVisualizerCanvas"></canvas>
+        
+        <div class="eq-presets">
+            <select class="glass-select" id="eqPresetSelect">
+                <option value="flat">Plano</option>
+                <option value="rock">Rock</option>
+                <option value="pop">Pop</option>
+                <option value="jazz">Jazz</option>
+                <option value="classical">Clásica</option>
+                <option value="bass">Bass Boost</option>
+                <option value="custom">Personalizado</option>
+            </select>
+            <button class="glass-btn" id="savePresetBtn">Guardar</button>
+        </div>
+        
+        <div class="eq-bands">
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="32" min="-12" max="12" value="0">
+                <span class="eq-label">32Hz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="64" min="-12" max="12" value="0">
+                <span class="eq-label">64Hz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="125" min="-12" max="12" value="0">
+                <span class="eq-label">125Hz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="250" min="-12" max="12" value="0">
+                <span class="eq-label">250Hz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="500" min="-12" max="12" value="0">
+                <span class="eq-label">500Hz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="1000" min="-12" max="12" value="0">
+                <span class="eq-label">1kHz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="2000" min="-12" max="12" value="0">
+                <span class="eq-label">2kHz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="4000" min="-12" max="12" value="0">
+                <span class="eq-label">4kHz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="8000" min="-12" max="12" value="0">
+                <span class="eq-label">8kHz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+            <div class="eq-band">
+                <input type="range" class="eq-slider" data-freq="16000" min="-12" max="12" value="0">
+                <span class="eq-label">16kHz</span>
+                <span class="eq-value">0dB</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Editor -->
+    <div class="theme-editor glass-panel hidden" id="themeEditor">
+        <div class="editor-header">
+            <h3>Personalizar Apariencia</h3>
+            <button class="close-btn" id="closeThemeBtn">×</button>
+        </div>
+        
+        <div class="theme-controls">
+            <div class="theme-section">
+                <h4>Colores</h4>
+                <div class="color-control">
+                    <label>Color Principal</label>
+                    <input type="color" id="accentColor" value="#6366f1">
+                </div>
+                <div class="color-control">
+                    <label>Fondo</label>
+                    <input type="color" id="bgColor" value="#0f172a">
+                </div>
+                <div class="color-control">
+                    <label>Texto</label>
+                    <input type="color" id="textColor" value="#ffffff">
+                </div>
+            </div>
+            
+            <div class="theme-section">
+                <h4>Efectos</h4>
+                <div class="slider-control">
+                    <label>Opacidad del Cristal</label>
+                    <input type="range" id="glassOpacity" min="0" max="100" value="20">
+                    <span class="slider-value">20%</span>
+                </div>
+                <div class="slider-control">
+                    <label>Desenfoque</label>
+                    <input type="range" id="blurAmount" min="0" max="20" value="10">
+                    <span class="slider-value">10px</span>
+                </div>
+            </div>
+            
+            <div class="theme-section">
+                <h4>Fondo</h4>
+                <div class="bg-options">
+                    <button class="bg-option active" data-bg="gradient">Degradado</button>
+                    <button class="bg-option" data-bg="image">Imagen</button>
+                    <button class="bg-option" data-bg="video">Video</button>
+                </div>
+                <input type="file" id="bgFileInput" class="hidden" accept="image/*,video/*">
+            </div>
+            
+            <div class="theme-section">
+                <h4>Presets</h4>
+                <div class="preset-grid">
+                    <button class="preset-btn" data-preset="dark">Dark</button>
+                    <button class="preset-btn" data-preset="neon">Neon</button>
+                    <button class="preset-btn" data-preset="pastel">Pastel</button>
+                    <button class="preset-btn" data-preset="minimal">Minimal</button>
+                </div>
+            </div>
+            
+            <div class="theme-actions">
+                <button class="glass-btn" id="exportThemeBtn">Exportar Tema</button>
+                <button class="glass-btn" id="importThemeBtn">Importar Tema</button>
+                <input type="file" id="themeFileInput" class="hidden" accept=".json">
+            </div>
+        </div>
+    </div>
+
+    <!-- Metadata Editor Modal -->
+    <div class="modal hidden" id="metadataModal">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3>Editar Metadatos</h3>
+                <button class="close-btn" id="closeMetadataBtn">×</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="metadata-form">
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" id="metaTitle" class="glass-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Artista</label>
+                        <input type="text" id="metaArtist" class="glass-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Álbum</label>
+                        <input type="text" id="metaAlbum" class="glass-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Pista</label>
+                        <input type="number" id="metaTrackNumber" class="glass-input" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Portada</label>
+                        <div class="cover-upload">
+                            <img id="metaCoverPreview" class="cover-preview">
+                            <button class="glass-btn" id="uploadCoverBtn">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="currentColor"/>
+                                </svg>
+                                Cambiar Portada
+                            </button>
+                            <input type="file" id="coverFileInput" class="hidden" accept="image/*,.gif,video/*">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="glass-btn" id="cancelMetadataBtn">Cancelar</button>
+                <button class="glass-btn primary" id="saveMetadataBtn">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Queue Panel -->
+    <div class="queue-panel glass-panel hidden" id="queuePanel">
+        <div class="queue-header">
+            <h3>Cola de Reproducción</h3>
+            <button class="close-btn" id="closeQueueBtn">×</button>
+        </div>
+        <div class="queue-list" id="queueList"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Hidden Media Elements -->
+<audio id="audioElement" crossorigin="anonymous"></audio>
+<video id="videoElement" crossorigin="anonymous" style="display:none;"></video>
+
+    
+    <!-- Hidden File Input -->
+    <input type="file" id="fileInput" class="hidden" multiple accept="audio/*,video/*">
+
+        <script src="app.js"></script>
+
+</body>
+</html>
